@@ -1,0 +1,7 @@
+{
+  "name": "TeraFlex",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
