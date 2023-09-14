@@ -1,0 +1,83 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-title>Detalle de tarea</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content mode="ios">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-grid fixed>
+    <div class="container">
+      <ion-row class="ion-justify-content-between">
+        <ion-col size="8">
+          <h4>
+            {{detailTask?.title}}
+          </h4>
+        </ion-col>
+        <ion-col size="auto" class="title">
+          <ion-button color="warning">
+            <ion-icon slot="icon-only" color="light" name="musical-notes"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-padding">
+        <ion-col size="12">
+          <ion-label>
+            {{detailTask?.description}}
+          </ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-between">
+        <ion-col size="8">
+          <h4>
+            Video Explicativo
+          </h4>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" *ngIf="file!=undefined">
+          <ng-container *ngIf="file.type === 'online'; else offlineContent">
+            <!-- Si es de tipo "online", muestra un iframe de YouTube -->
+            <iframe class="centered-video-youtube" [src]="showVideo(file.url)" title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </ng-container>
+          <ng-template #offlineContent>
+            <!-- Si es de tipo "offline", muestra un video con la URL del blob -->
+            <video #video class="video" controls>
+              <source [src]="file.url" type="video/mp4">
+            </video>
+          </ng-template>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <ion-button *ngIf="index>0" (click)="anteriorVideo()" expand="block" fill="clear" shape="round">
+            Atras
+          </ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button *ngIf="index<videoData.length-1" (click)="siguienteVideo()" expand="block" fill="clear"
+            shape="round">
+            Siguiente
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!detailTask?.isCompleted" class="ion-padding">
+        <ion-col size="12">
+          <ion-button (click)="finalizaTarea()" expand="block" color="success">
+            <ion-icon slot="start" name="checkmark-circle"></ion-icon>
+            Finalizar tarea
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
+</ion-content>

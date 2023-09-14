@@ -1,20 +1,56 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<ion-content [fullscreen]="true" [scrollY]="false">
+  <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="6">
+          <ion-img class="img" [src]="'assets/icon/favicon.png'"></ion-img>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="auto">
+          <ion-label>
+            <h1 class="title">Inicio de sesión</h1>
+          </ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center campos">
+        <ion-col size="12">
+          <ion-item class="fields">
+            <ion-input type="number" formControlName="usuario" label="Usuario" labelPlacement="floating"
+              placeholder="Ingrese su usuario"></ion-input>
+          </ion-item>
+          <ion-row class="ion-justify-content-start">
+            <ion-label class="error-message"
+              *ngIf="formulario.get('usuario')?.invalid && (formulario.get('usuario')?.dirty || formulario.get('usuario')?.touched)">
+              {{ mostrarError('usuario') }}
+            </ion-label>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center campos">
+        <ion-col size="12">
+          <ion-item class="fields">
+            <ion-input type="password" formControlName="contraseña" label="Contraseña" labelPlacement="floating"
+              placeholder="Ingrese su contraseña"></ion-input>
+          </ion-item>
+          <div class="error-message"
+            *ngIf="formulario.get('contraseña')?.invalid && (formulario.get('contraseña')?.dirty || formulario.get('contraseña')?.touched)">
+            {{ mostrarError('contraseña') }}
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12">
+          <ion-button type="submit" expand="block" class="buttonPrincipal">Ingresar</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="auto">
+          <ion-label>
+            <h1 class="txtOlvide">Olvide mi contraseña</h1>
+          </ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>
