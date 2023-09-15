@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TaskServiceService } from 'src/app/servicios/task-service.service';
 import { PreferencesService } from '../../preferences.service';
 import { ApiResponseListTasksAssignsToPatientI, TaskDetailAssignToPatientI } from 'src/app/interfaces/Task.interface';
@@ -30,7 +30,7 @@ export class TasksComponent implements OnInit {
   async loadTasks() {
     this.showLoading();
     (await this.taskService.getTasks(
-      Number.parseInt(await this.preferencesService.getName("userId") ?? '0'), this.estadoActivity
+      Number.parseInt(localStorage.getItem("userId") ?? '0'), this.estadoActivity
     )).subscribe(
       (resp) => {
         if (resp.data.length == 0) {
@@ -63,7 +63,8 @@ export class TasksComponent implements OnInit {
   async showLoading() {
     this.loading = await this.loadingCtrl.create({
       message: 'Cargando',
-      animated: true
+      animated: true,
+      mode:'ios'
     });
     this.loading.present();
   }
@@ -77,6 +78,7 @@ export class TasksComponent implements OnInit {
       header: title,
       message: message,
       buttons: ['OK'],
+      mode:'ios'
     });
     await alert.present();
   }

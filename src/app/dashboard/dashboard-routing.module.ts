@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardPage } from './dashboard.page';
 import { TasksComponent } from './tasks/tasks.component';
 import { DetailComponent } from './tasks/detail/detail.component';
+import { MiPerfilComponent } from './mi-perfil/mi-perfil.component';
+import { NotificacionesComponent } from './notificaciones/notificaciones.component';
 
 const routes: Routes = [
   {
@@ -17,6 +19,14 @@ const routes: Routes = [
   {
     path:'tasks/detail/:id',
     component:DetailComponent
+  },
+  {
+    path:'perfil',
+    component: MiPerfilComponent
+  },
+  {
+    path:'notifications',
+    component:NotificacionesComponent
   }
 ];
 

@@ -1,57 +1,68 @@
 <ion-header mode="ios">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+      <ion-back-button color="light" defaultHref="/dashboard"></ion-back-button>
     </ion-buttons>
     <ion-title>TeraFlex</ion-title>
   </ion-toolbar>
-  <ion-toolbar>
+  <ion-toolbar class="borderRadius">
     <ion-title>Tareas</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-select mode="ios" cancelText="Cancelar" [value]="false" labelPlacement="stacked" justify="center"
-  (ionChange)="handleChange($event)" aria-label="Fruit" interface="action-sheet" placeholder="Seleccione el estado "
-  fill="outline">
-  <ion-select-option [value]="false" selected>Actividades Pendientes</ion-select-option>
-  <ion-select-option [value]="true">Actividades Completadas</ion-select-option>
-</ion-select>
+<ion-row class="row ion-justify-content-center">
+  <ion-col size="6">
+    <h4>
+      Filtrar tareas por
+    </h4>
+  </ion-col>
+  <ion-col class="select" size="9">
+    <ion-select mode="ios" cancelText="Cancelar" [value]="false" labelPlacement="stacked" justify="center"
+      (ionChange)="handleChange($event)" aria-label="Fruit" interface="action-sheet"
+      placeholder="Seleccione el estado ">
+      <ion-select-option [value]="false" selected>Actividades Pendientes</ion-select-option>
+      <ion-select-option [value]="true">Actividades Completadas</ion-select-option>
+    </ion-select>
+  </ion-col>
+</ion-row>
 <ion-content mode="ios">
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-grid>
-    <ion-row class="ion-justify-content-center" *ngIf="tasksData && tasksData.length > 0">
-      <ion-col size="12" *ngFor="let task of tasksData">
-        <ion-card [routerLink]="'detail/'+task.id">
-          <ion-card-header>
-            <ion-row class="ion-justify-content-start">
-              <ion-col class="icon" size="3">
-                <ion-icon color="dark" size="large" name="newspaper"></ion-icon>
-              </ion-col>
-              <ion-col size="9">
-                <ion-card-title>
-                  {{task.task.title}}
-                </ion-card-title>
-              </ion-col>
-            </ion-row>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-row class="ion-justify-content-start">
-              <ion-col offset="3" color="dark" size="auto">
-                <ion-icon name="time"></ion-icon>
-              </ion-col>
-              <ion-col size="6">
-                {{task.task.estimatedTime}} minutos
-              </ion-col>
-            </ion-row>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-    <ion-row class="ion-justify-content-center" *ngIf="!tasksData || tasksData.length === 0">
-      <ion-col size="12">
-        <p>No hay tareas disponibles.</p>
-      </ion-col>
-    </ion-row>
+    <div class="container">
+      <ion-row class="ion-justify-content-center" *ngIf="tasksData && tasksData.length > 0">
+        <ion-col size="12" *ngFor="let task of tasksData">
+          <ion-card [routerLink]="'detail/'+task.id">
+            <ion-card-header>
+              <ion-row class="ion-justify-content-start">
+                <ion-col class="icon" size="3">
+                  <ion-icon color="dark" size="large" name="newspaper"></ion-icon>
+                </ion-col>
+                <ion-col size="9">
+                  <ion-card-title>
+                    {{task.task.title}}
+                  </ion-card-title>
+                </ion-col>
+              </ion-row>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-row class="ion-justify-content-start">
+                <ion-col offset="3" color="dark" size="auto">
+                  <ion-icon name="time"></ion-icon>
+                </ion-col>
+                <ion-col size="6">
+                  {{task.task.estimatedTime}} minutos
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center" *ngIf="!tasksData || tasksData.length === 0">
+        <ion-col size="12">
+          <p>No hay tareas disponibles.</p>
+        </ion-col>
+      </ion-row>
+    </div>
   </ion-grid>
 </ion-content>

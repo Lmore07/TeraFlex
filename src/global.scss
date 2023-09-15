@@ -29,5 +29,27 @@
 :root {
     --ion-color-primary: #3880ff;
 
-    background-color: rgb(230, 229, 234);
+    --background-color: rgb(230, 229, 234);
+    --background-colorCard: rgb(156, 211, 221);
+    --background-ColorHeader: rgb(0, 123, 189);
+
+    .container {
+        background-color: white;
+        margin: 10px;
+        border-radius: 15px;
+    }
+
+    .borderRadius{
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        background-color: var(--background-color);
+    }
+
+    ion-header{
+        background-color: var(--background-color);
+    }
+
+    ion-content::part(background) {
+        background-color: var(--background-color);
+    }
 }

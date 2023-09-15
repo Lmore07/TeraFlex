@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, Platform } from '@ionic/angular';
 import { TaskServiceService } from 'src/app/servicios/task-service.service';
-import { ScreenReader } from '@capacitor/screen-reader';
 import { FilesToView, TaskDetail } from 'src/app/interfaces/Task.interface';
 import { register } from 'swiper/element/bundle';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
@@ -20,12 +19,12 @@ export class DetailComponent implements OnInit {
   // Variable para rastrear el video activo actual
   activeVideoElement!: HTMLVideoElement | HTMLIFrameElement;
 
-  detailTask: TaskDetail|undefined;
+  detailTask: TaskDetail | undefined;
   loading!: any;
 
-  videoData: FilesToView[]=[];
-  file!:FilesToView;
-  index: number=0;
+  videoData: FilesToView[] = [];
+  file!: FilesToView;
+  index: number = 0;
   idTask!: number;
   constructor(
     private alertController: AlertController,
@@ -33,8 +32,15 @@ export class DetailComponent implements OnInit {
     private router: Router,
     private loadingCtrl: LoadingController,
     private taskService: TaskServiceService,
+    private platform: Platform,
     private sanitizer: DomSanitizer
   ) {
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      const rutaActual = this.router.url;
+      console.log('Handler was called!');
+      console.log(rutaActual);
+      this.router.navigateByUrl("/dashboard/tasks", { skipLocationChange: true });
+    });
   }
 
   async ngOnInit() {
@@ -43,17 +49,16 @@ export class DetailComponent implements OnInit {
       console.log(this.idTask)
       await this.loadDetailTask();
     });
-    //await ScreenReader.speak({ value: 'Hello World!' });
   }
 
-  siguienteVideo(){
-    this.index+=1;
-    this.file=this.videoData[this.index];
+  siguienteVideo() {
+    this.index += 1;
+    this.file = this.videoData[this.index];
   }
 
-  anteriorVideo(){
-    this.index-=1;
-    this.file=this.videoData[this.index];
+  anteriorVideo() {
+    this.index -= 1;
+    this.file = this.videoData[this.index];
   }
 
   async loadDetailTask() {
@@ -68,14 +73,14 @@ export class DetailComponent implements OnInit {
           console.log(resp);
           this.detailTask = resp.data;
           this.detailTask.files.forEach(async element => {
-            if(element.type=="online"){
-              let download:FilesToView={type:"online", url:"https://www.youtube.com/embed/"+this.getVideoIdFromUrl(element.url)};
+            if (element.type == "online") {
+              let download: FilesToView = { type: "online", url: "https://www.youtube.com/embed/" + this.getVideoIdFromUrl(element.url) };
               console.log(download)
               this.videoData.push(download);
-            }else{
+            } else {
               //await this.downloadFiles(element.id, element.type);
             }
-            this.file=this.videoData[0];
+            this.file = this.videoData[0];
           });
         }
         this.esconderLoading();
@@ -89,23 +94,23 @@ export class DetailComponent implements OnInit {
 
   async handleRefresh(event: any) {
     this.detailTask = undefined;
-    this.videoData=[];
+    this.videoData = [];
     await this.loadDetailTask();
     event.target.complete();
   }
 
-  showVideo(video:string){
+  showVideo(video: string) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(video);
   }
 
-  async finalizaTarea(){
+  async finalizaTarea() {
     this.showLoading();
     (await this.taskService.completeTask(
       this.idTask
     )).subscribe(
       (resp) => {
         this.esconderLoading();
-        this.presentAlert("Excelente","La tarea se completó con éxito");
+        this.presentAlert("Excelente", "La tarea se completó con éxito");
       },
       (err) => {
         console.log(err)
@@ -114,15 +119,15 @@ export class DetailComponent implements OnInit {
     );
   }
 
-  async downloadFiles(id:number,type: string) {
+  async downloadFiles(id: number, type: string) {
     this.showLoading();
     (await this.taskService.downloadFile(
       id
     )).subscribe(
-      (resp:Blob) => {
+      (resp: Blob) => {
         const blobUrl = URL.createObjectURL(resp);
-        console.log("Video descargado: "+blobUrl)
-        let download:FilesToView={type:type, url:blobUrl};
+        console.log("Video descargado: " + blobUrl)
+        let download: FilesToView = { type: type, url: blobUrl };
         this.videoData.push(download);
         this.esconderLoading();
       },
@@ -144,7 +149,8 @@ export class DetailComponent implements OnInit {
   async showLoading() {
     this.loading = await this.loadingCtrl.create({
       message: 'Cargando',
-      animated: true
+      animated: true,
+      mode: 'ios'
     });
     this.loading.present();
   }
@@ -156,13 +162,14 @@ export class DetailComponent implements OnInit {
   async presentAlert(title: string, message: string) {
     const alert = await this.alertController.create({
       header: title,
+      mode: 'ios',
       message: message,
       buttons: [
         {
           text: 'OK',
-          role:'confirm',
-          handler:() => {
-            this.router.navigateByUrl("/tasks");
+          role: 'confirm',
+          handler: () => {
+            this.router.navigateByUrl("/dashboard/tasks", { skipLocationChange: true });
           }
         }
       ],

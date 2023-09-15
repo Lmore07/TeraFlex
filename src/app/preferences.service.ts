@@ -6,21 +6,25 @@ import { Preferences } from '@capacitor/preferences';
   providedIn: 'root',
 })
 export class PreferencesService {
-  constructor() {}
+  constructor() { }
 
-  async setName(key: string, value: string) {
-    await Preferences.set({
+  setName(key: string, value: string) {
+    Preferences.set({
       key: key,
       value: value,
     });
   }
 
-  async getName(key: string) {
-    const { value } = await Preferences.get({ key: key });
-    return value;
+  getName(key: string) {
+    return Preferences.get({ key: key });
   }
 
-  async removeName(key: string) {
-    await Preferences.remove({ key: key });
+  removeName(key: string) {
+    Preferences.remove({ key: key });
   }
+
+  clearStorage() {
+    Preferences.clear();
+  }
+
 }

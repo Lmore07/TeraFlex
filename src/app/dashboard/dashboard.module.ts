@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -12,7 +12,6 @@ import { NotificacionesComponent } from './notificaciones/notificaciones.compone
 import { MiPerfilComponent } from './mi-perfil/mi-perfil.component';
 import { AyudasComponent } from './ayudas/ayudas.component';
 import { InformacionComponent } from './informacion/informacion.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
 import { DetailComponent } from './tasks/detail/detail.component';
 
@@ -21,6 +20,7 @@ import { DetailComponent } from './tasks/detail/detail.component';
     CommonModule,
     FormsModule,
     IonicModule,
+    ReactiveFormsModule,
     DashboardPageRoutingModule,
     RouterModule,
   ],
@@ -31,7 +31,6 @@ import { DetailComponent } from './tasks/detail/detail.component';
     MiPerfilComponent,
     AyudasComponent,
     InformacionComponent,
-    DashboardComponent,
     DetailComponent
   ],
   schemas: [

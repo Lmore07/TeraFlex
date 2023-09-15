@@ -45,7 +45,7 @@ export class TaskServiceService {
 
   async getHeaders() {
     this.headers = new HttpHeaders({
-      'Authorization': `Bearer ${await this.preferences.getName('token')}`
+      'Authorization': `Bearer ${(await this.preferences.getName('token')).value}`
     });
   }
 }

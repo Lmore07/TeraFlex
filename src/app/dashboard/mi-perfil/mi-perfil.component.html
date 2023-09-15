@@ -1,3 +1,70 @@
-<p>
-  mi-perfil works!
-</p>
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="light" [defaultHref]="dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>TeraFlex</ion-title>
+  </ion-toolbar>
+  <ion-toolbar class="borderRadius">
+    <ion-title>Tareas</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="form">
+    <ion-grid>
+      <div class="container">
+
+        <ion-row class="ion-justify-content-center">
+          <ion-col size="1">
+            <ion-icon name="person" color="primary" size="large"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-item>
+              <ion-input readonly="true" formControlName="nombres" label="Nombres" labelPlacement="stacked"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-item>
+              <ion-input readonly="true" formControlName="cedula" label="Cédula" labelPlacement="stacked"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-item>
+              <ion-input readonly="true" formControlName="telefono" label="Teléfono"
+                labelPlacement="stacked"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-item>
+              <ion-textarea formControlName="descripcion" label="Descripción" labelPlacement="stacked"></ion-textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="12">
+            <ion-button (click)="speak()" color="warning" mode="ios" expand="block">
+              Dictado por voz
+              <ion-icon slot="end" name="mic"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="12">
+            <ion-button (click)="logOut()" color="danger" mode="ios" expand="block">
+              Cerrar Sesión
+              <ion-icon slot="end" name="log-out"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-grid>
+  </form>
+
+</ion-content>

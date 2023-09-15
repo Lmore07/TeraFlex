@@ -1,1 +1,97 @@
-<ion-nav [root]="component"></ion-nav>
+<ion-header mode="ios">
+    <ion-toolbar>
+      <ion-title>TeraFlex</ion-title>
+    </ion-toolbar>
+    <ion-toolbar class="borderRadius">
+      <ion-title>Hola, bienvenido</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content mode="ios">
+    <ion-grid>
+      <div class="container">
+        <ion-row class="ion-justify-content-center">
+          <ion-col size="12">
+            <ion-card routerLink="tasks">
+              <ion-card-header>
+                <ion-row class="ion-justify-content-start">
+                  <ion-col size="auto">
+                    <ion-icon size="large" color="dark" name="newspaper"></ion-icon>
+                  </ion-col>
+                  <ion-col size="auto">
+                    <ion-card-title>
+                     Tareas
+                    </ion-card-title>
+                  </ion-col>
+                </ion-row>
+              </ion-card-header>
+            </ion-card>
+          </ion-col>
+          <ion-col size="12">
+            <ion-card routerLink="notifications">
+              <ion-card-header>
+                <ion-row class="ion-justify-content-start">
+                  <ion-col size="auto">
+                    <ion-icon size="large" color="dark" name="notifications"></ion-icon>
+                  </ion-col>
+                  <ion-col size="auto">
+                    <ion-card-title>
+                      Notificaciones
+                    </ion-card-title>
+                  </ion-col>
+                </ion-row>
+              </ion-card-header>
+            </ion-card>
+          </ion-col>
+          <ion-col size="12">
+            <ion-card routerLink="perfil">
+              <ion-card-header>
+                <ion-row class="ion-justify-content-start">
+                  <ion-col size="auto">
+                    <ion-icon size="large" color="dark" name="person"></ion-icon>
+                  </ion-col>
+                  <ion-col size="auto">
+                    <ion-card-title>
+                      Mi Perfil
+                    </ion-card-title>
+                  </ion-col>
+                </ion-row>
+              </ion-card-header>
+            </ion-card>
+          </ion-col>
+          <ion-col size="12">
+            <ion-card>
+              <ion-card-header>
+                <ion-row class="ion-justify-content-start">
+                  <ion-col size="auto">
+                    <ion-icon size="large" color="dark" name="help-circle"></ion-icon>
+                  </ion-col>
+                  <ion-col size="auto">
+                    <ion-card-title>
+                      Ayuda
+                    </ion-card-title>
+                  </ion-col>
+                </ion-row>
+              </ion-card-header>
+            </ion-card>
+          </ion-col>
+          <ion-col size="12">
+            <ion-card>
+              <ion-card-header>
+                <ion-row class="ion-justify-content-start">
+                  <ion-col size="auto">
+                    <ion-icon size="large" color="dark" name="information-circle"></ion-icon>
+                  </ion-col>
+                  <ion-col size="auto">
+                    <ion-card-title>
+                      Acerca de
+                    </ion-card-title>
+                  </ion-col>
+                </ion-row>
+              </ion-card-header>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-grid>
+  
+  </ion-content>

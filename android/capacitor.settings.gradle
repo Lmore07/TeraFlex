@@ -2,8 +2,14 @@
 include ':capacitor-android'
 project(':capacitor-android').projectDir = new File('../node_modules/@capacitor/android/capacitor')
 
+include ':capacitor-community-text-to-speech'
+project(':capacitor-community-text-to-speech').projectDir = new File('../node_modules/@capacitor-community/text-to-speech/android')
+
 include ':capacitor-app'
 project(':capacitor-app').projectDir = new File('../node_modules/@capacitor/app/android')
+
+include ':capacitor-device'
+project(':capacitor-device').projectDir = new File('../node_modules/@capacitor/device/android')
 
 include ':capacitor-filesystem'
 project(':capacitor-filesystem').projectDir = new File('../node_modules/@capacitor/filesystem/android')
@@ -16,6 +22,9 @@ project(':capacitor-keyboard').projectDir = new File('../node_modules/@capacitor
 
 include ':capacitor-preferences'
 project(':capacitor-preferences').projectDir = new File('../node_modules/@capacitor/preferences/android')
+
+include ':capacitor-push-notifications'
+project(':capacitor-push-notifications').projectDir = new File('../node_modules/@capacitor/push-notifications/android')
 
 include ':capacitor-screen-reader'
 project(':capacitor-screen-reader').projectDir = new File('../node_modules/@capacitor/screen-reader/android')

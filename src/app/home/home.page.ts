@@ -54,6 +54,8 @@ export class HomePage implements OnInit, OnDestroy {
         async (resp) => {
           const tokenDecode:any = jose.decodeJwt(resp.data.token);
           if (tokenDecode.role=='PATIENT') {
+            localStorage.setItem("token",resp.data.token);
+            localStorage.setItem("userId",tokenDecode.id);
             await this.preferencesService.setName('token', resp.data.token);
             await this.preferencesService.setName('userId', tokenDecode.id);
             this.esconderLoading();
@@ -75,7 +77,8 @@ export class HomePage implements OnInit, OnDestroy {
   async showLoading() {
     this.loading = await this.loadingCtrl.create({
       message: 'Cargando',
-      animated: true
+      animated: true,
+      mode:'ios'
     });
 
     this.loading.present();
@@ -90,6 +93,7 @@ export class HomePage implements OnInit, OnDestroy {
       header: title,
       message: message,
       buttons: ['OK'],
+      mode:'ios'
     });
     await alert.present();
   }

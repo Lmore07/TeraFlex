@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "878638150557",
+    "project_id": "teraflex-dc661",
+    "storage_bucket": "teraflex-dc661.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878638150557:android:8aed375e072ae61cee3574",
+        "android_client_info": {
+          "package_name": "com.example.fisioflex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878638150557-2ibslvoh6htni2uiaap16ldgg1i4u4rb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3ZQ8HEFgWSVobgPlYMAsrWeuWhAExaGo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878638150557-2ibslvoh6htni2uiaap16ldgg1i4u4rb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "878638150557-9g0ird0k26q5400070d2hpe8ganeaiuv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fisioflex"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878638150557:android:32a36a99f2cca16eee3574",
+        "android_client_info": {
+          "package_name": "io.ionic.starter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878638150557-2ibslvoh6htni2uiaap16ldgg1i4u4rb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3ZQ8HEFgWSVobgPlYMAsrWeuWhAExaGo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878638150557-2ibslvoh6htni2uiaap16ldgg1i4u4rb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "878638150557-9g0ird0k26q5400070d2hpe8ganeaiuv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fisioflex"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

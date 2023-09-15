@@ -1,3 +1,55 @@
-<p>
-  notificaciones works!
-</p>
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="light" defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>TeraFlex</ion-title>
+  </ion-toolbar>
+  <ion-toolbar class="borderRadius">
+    <ion-title>Notificaciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-grid fixed>
+    <div class="container position">
+      <ion-row class="ion-justify-content-center" *ngIf="notificationList && notificationList.length > 0">
+        <ion-col size="12" *ngFor="let notification of notificationList">
+          <ion-card>
+            <ion-card-header>
+              <ion-row class="ion-justify-content-start">
+                <ion-col class="icon" size="3">
+                  <ion-icon color="dark" size="large" name="newspaper"></ion-icon>
+                </ion-col>
+                <ion-col size="9">
+                  <ion-card-title>
+                    {{notification.title}}
+                  </ion-card-title>
+                </ion-col>
+              </ion-row>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-row class="ion-justify-content-center">
+                <ion-col size="9">
+                  {{notification.body}}
+                </ion-col>
+                <ion-col class="button" size="3">
+                  <ion-button color="success" (click)="checkNotification(notification.id)">
+                    <ion-icon slot="icon-only" color="light" name="checkmark-circle"></ion-icon>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center ion-padding" *ngIf="!notificationList || notificationList.length === 0">
+        <ion-col size="12">
+          <p>No hay notificaciones disponibles.</p>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
+</ion-content>
