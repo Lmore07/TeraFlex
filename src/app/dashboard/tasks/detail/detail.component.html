@@ -8,7 +8,7 @@
     <ion-title>Detalle de tarea</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content mode="ios">
+<ion-content fullscreen="true" mode="ios">
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -21,7 +21,7 @@
           </h4>
         </ion-col>
         <ion-col size="auto" class="title">
-          <ion-button color="warning">
+          <ion-button (click)="playSound($event)" color="warning">
             <ion-icon slot="icon-only" color="light" name="musical-notes"></ion-icon>
           </ion-button>
         </ion-col>
@@ -44,9 +44,8 @@
         <ion-col size="12" *ngIf="file!=undefined">
           <ng-container *ngIf="file.type === 'online'; else offlineContent">
             <!-- Si es de tipo "online", muestra un iframe de YouTube -->
-            <iframe class="centered-video-youtube" [src]="showVideo(file.url)" title="YouTube video player"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            <iframe class="centered-video-youtube" [src]="showVideo(file.url)"
+              frameborder="0" #iframeElement
               allowfullscreen></iframe>
           </ng-container>
           <ng-template #offlineContent>

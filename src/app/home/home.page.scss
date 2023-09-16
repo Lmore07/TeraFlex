@@ -1,12 +1,17 @@
 ion-content {
   --background:url('/assets/bg-login.png') no-repeat top center;
   background: var(--background);
-  background-size: 100%;
   position: relative;
+  background-size: contain;
+}
+
+ion-grid{
+  margin: 0px;
+  padding: 0px;
 }
 
 .img{
-  margin-top: 15%;
+  margin-top: 20%;
   margin-bottom: 5%;
 }
 

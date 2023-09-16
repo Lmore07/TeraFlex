@@ -5,7 +5,6 @@ import { AlertController, LoadingController } from '@ionic/angular';
 import { PreferencesService } from 'src/app/preferences.service';
 import { ApiNotificationService } from 'src/app/servicios/notificactions/api-notification.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
-import { TextToSpeech, TTSOptions } from '@capacitor-community/text-to-speech';
 import { TextToSpeechService } from 'src/app/servicios/text-to-speech.service';
 
 @Component({

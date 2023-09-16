@@ -1,5 +1,11 @@
-ion-content::part(background) {
-    background-color: var(--background-color);
+ion-content{
+    padding: 0px;
+    margin: 0px;
+}
+
+ion-grid{
+    padding: 0px;
+    margin: 0px;
 }
 
 .cardTitle {

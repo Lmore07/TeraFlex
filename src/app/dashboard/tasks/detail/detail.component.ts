@@ -1,11 +1,12 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertController, LoadingController, Platform } from '@ionic/angular';
 import { TaskServiceService } from 'src/app/servicios/task-service.service';
 import { FilesToView, TaskDetail } from 'src/app/interfaces/Task.interface';
 import { register } from 'swiper/element/bundle';
-import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ScreenOrientation } from '@capacitor/screen-orientation';
+import { TextToSpeechService } from 'src/app/servicios/text-to-speech.service';
 
 register();
 @Component({
@@ -18,7 +19,7 @@ export class DetailComponent implements OnInit {
 
   // Variable para rastrear el video activo actual
   activeVideoElement!: HTMLVideoElement | HTMLIFrameElement;
-
+  @ViewChild('iframeElement') iframeElement!: ElementRef;
   detailTask: TaskDetail | undefined;
   loading!: any;
 
@@ -33,21 +34,46 @@ export class DetailComponent implements OnInit {
     private loadingCtrl: LoadingController,
     private taskService: TaskServiceService,
     private platform: Platform,
+    private tts: TextToSpeechService,
     private sanitizer: DomSanitizer
   ) {
-    this.platform.backButton.subscribeWithPriority(10, () => {
-      const rutaActual = this.router.url;
-      console.log('Handler was called!');
-      console.log(rutaActual);
-      this.router.navigateByUrl("/dashboard/tasks", { skipLocationChange: true });
+    this.platform.backButton.subscribeWithPriority(10, async () => {
+      if ((await ScreenOrientation.orientation()).type.includes('landscape')) {
+        await ScreenOrientation.lock({
+          orientation: 'portrait'
+        });
+      } else {
+        console.log('Handler was called!');
+        this.router.navigateByUrl("/dashboard/tasks", { skipLocationChange: true });
+      }
     });
+  }
+
+  async playSound(event: any) {
+    console.log(this.iframeElement.nativeElement);
+    console.log(this.iframeElement)
+    await this.tts.speak("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
   }
 
   async ngOnInit() {
     this.activatedRoute.params.subscribe(async (params) => {
       this.idTask = params['id'];
-      console.log(this.idTask)
       await this.loadDetailTask();
+    });
+    ScreenOrientation.lock({
+      orientation: 'portrait'
+    });
+    document.addEventListener('fullscreenchange', async () => {
+      if (document.fullscreenElement === this.iframeElement.nativeElement) {
+        await ScreenOrientation.lock({
+          orientation: 'landscape'
+
+        });
+      } else {
+        await ScreenOrientation.lock({
+          orientation: 'portrait'
+        });
+      }
     });
   }
 
@@ -101,6 +127,11 @@ export class DetailComponent implements OnInit {
 
   showVideo(video: string) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(video);
+  }
+
+  probando(event: any) {
+    console.log("probando");
+    console.log(this.iframeElement);
   }
 
   async finalizaTarea() {

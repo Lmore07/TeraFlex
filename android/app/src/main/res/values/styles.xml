@@ -15,6 +15,10 @@
         <item name="android:background">@null</item>
     </style>
 
+    <style name="AppThemeFullScreen" parent="Theme.AppCompat.Light.NoActionBar">
+      <item name="android:windowFullscreen">true</item> <!-- Esto activa el modo pantalla completa -->
+      <item name="android:windowContentOverlay">@null</item> <!-- Esto elimina la barra de estado y los botones de acción -->
+    </style>
 
     <style name="AppTheme.NoActionBarLaunch" parent="Theme.SplashScreen">
         <item name="android:background">@drawable/splash</item>
