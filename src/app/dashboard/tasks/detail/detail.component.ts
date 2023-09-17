@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertController, LoadingController, Platform } from '@ionic/angular';
 import { TaskServiceService } from 'src/app/servicios/task-service.service';
 import { FilesToView, TaskDetail } from 'src/app/interfaces/Task.interface';
@@ -16,10 +16,9 @@ register();
 })
 export class DetailComponent implements OnInit {
 
-
-  // Variable para rastrear el video activo actual
-  activeVideoElement!: HTMLVideoElement | HTMLIFrameElement;
   @ViewChild('iframeElement') iframeElement!: ElementRef;
+  @ViewChild('videoElement') videoelement!: ElementRef;
+
   detailTask: TaskDetail | undefined;
   loading!: any;
 
@@ -27,6 +26,10 @@ export class DetailComponent implements OnInit {
   file!: FilesToView;
   index: number = 0;
   idTask!: number;
+  apiLoaded = false;
+  target!: any;
+  repoduciendoSonido = false;
+
   constructor(
     private alertController: AlertController,
     private activatedRoute: ActivatedRoute,
@@ -42,6 +45,7 @@ export class DetailComponent implements OnInit {
         await ScreenOrientation.lock({
           orientation: 'portrait'
         });
+        document.exitFullscreen();
       } else {
         console.log('Handler was called!');
         this.router.navigateByUrl("/dashboard/tasks", { skipLocationChange: true });
@@ -49,33 +53,53 @@ export class DetailComponent implements OnInit {
     });
   }
 
+
   async playSound(event: any) {
-    console.log(this.iframeElement.nativeElement);
-    console.log(this.iframeElement)
-    await this.tts.speak("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
+    const messageVoice = this.getMessageVoice(this.detailTask?.title!, this.detailTask?.description!, this.detailTask?.estimatedTime!);
+    console.log(messageVoice);
+    await this.tts.speak(messageVoice);
   }
 
-  async ngOnInit() {
+  ngOnInit() {
+    document.addEventListener('volumechange', async () => {
+      console.log("probando")
+    });
     this.activatedRoute.params.subscribe(async (params) => {
       this.idTask = params['id'];
-      await this.loadDetailTask();
+      this.loadDetailTask();
     });
     ScreenOrientation.lock({
       orientation: 'portrait'
     });
     document.addEventListener('fullscreenchange', async () => {
-      if (document.fullscreenElement === this.iframeElement.nativeElement) {
-        await ScreenOrientation.lock({
+      console.log(this.videoelement)
+      if ((document.fullscreenElement === this.iframeElement?.nativeElement)) {
+        ScreenOrientation.lock({
           orientation: 'landscape'
-
         });
       } else {
-        await ScreenOrientation.lock({
+        ScreenOrientation.lock({
           orientation: 'portrait'
         });
       }
     });
+    document.addEventListener('webkitfullscreenchange', () => {
+      const video = this.videoelement.nativeElement;
+
+      if (document.fullscreenElement === video) {
+        ScreenOrientation.lock({
+          orientation: 'landscape'
+        });
+      } else {
+        // El elemento de video ya no está en pantalla completa
+        ScreenOrientation.lock({
+          orientation: 'portrait'
+        });
+      }
+    });
+
   }
+
 
   siguienteVideo() {
     this.index += 1;
@@ -127,11 +151,6 @@ export class DetailComponent implements OnInit {
 
   showVideo(video: string) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(video);
-  }
-
-  probando(event: any) {
-    console.log("probando");
-    console.log(this.iframeElement);
   }
 
   async finalizaTarea() {
@@ -206,6 +225,28 @@ export class DetailComponent implements OnInit {
       ],
     });
     await alert.present();
+  }
+
+  getMessageVoice(
+    title: string, description: string, timeExpected: number) {
+    const messages = [
+      `Hola, tu tarea ${title} consiste en ${description}. Te recomiendo dedicar al menos ${timeExpected} minutos para completarla.`,
+      `¡Hola! No olvides realizar la tarea "${title}". Es importante ${description}. Asigna al menos ${timeExpected} minutos para ello.`,
+      `Hola, recuerda que tienes la tarea "${title}". Asegúrate de ${description} y toma al menos ${timeExpected} minutos para completarla.`,
+      `¡Hola ! Quiero recordarte sobre la tarea "${title}". Asegúrate de ${description} y reserva ${timeExpected} minutos para completarla.`,
+      `Hola, no olvides la tarea "${title}". Debes ${description} y tomar al menos ${timeExpected} minutos para finalizarla.`,
+      `¡Hola! Te recuerdo que debes realizar la tarea "${title}". Asegúrate de ${description} y asigna ${timeExpected} minutos para ello.`,
+      `Hola, no descuides la tarea "${title}". Es importante ${description} y requiere al menos ${timeExpected} minutos de tu tiempo.`,
+      `¡Hola! No olvides dedicar tiempo a la tarea "${title}". Recuerda ${description} y toma ${timeExpected} minutos para realizarla correctamente.`,
+      `Hola, ten en cuenta la tarea "${title}". Es necesario ${description} y debes invertir al menos ${timeExpected} minutos en ello.`,
+      `¡Hola! No pierdas de vista la tarea "${title}". Recuerda ${description} y reserva ${timeExpected} minutos para completarla exitosamente.`,
+    ];
+    const randomMessage = messages[this.getRandomInt(0, 10)];
+    return randomMessage;
+  }
+
+  getRandomInt(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }
 

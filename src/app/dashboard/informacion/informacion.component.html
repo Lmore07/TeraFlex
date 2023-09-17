@@ -1,3 +1,184 @@
-<p>
-  informacion works!
-</p>
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Atrás" color="light" defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>TeraFlex</ion-title>
+  </ion-toolbar>
+  <ion-toolbar class="borderRadius">
+    <ion-title>Acerca de</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen="true" mode="ios">
+  <ion-grid>
+    <div class="container">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon mode="ios" color="primary" size="large" name="information-circle"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <!--Desarrollado por-->
+        <div class="container-developers">
+          <label class="label"><b>Desarrollada por</b></label>
+          <div *ngFor="let developer of arrayDevelopers">
+            <div class="text-center card-box">
+              <div class="member-card">
+                <div class="thumb-lg member-thumb">
+                  <img [src]="developer.profile" alt="profile-image">
+                </div>
+                <div>
+                  <h6>{{developer.name}}</h6>
+                  <p>{{developer.position}}</p>
+                </div>
+                <ion-row class="ion-justify-content-center">
+                  <ion-col size="auto">
+                    <ion-button target="_blank" [href]="developer.mail" class="button" mode="ios" size="small"
+                      color="secondary">
+                      <ion-icon color="light" slot="icon-only" name="mail"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                  <ion-col size="auto">
+                    <ion-button target="_blank" [href]="developer.linkedin" class="button" mode="ios" size="small"
+                      color="primary">
+                      <ion-icon color="light" slot="icon-only" name="logo-linkedin"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!--Dirigido por-->
+        <div class="row container-professors">
+          <label><b>Dirigido por</b></label>
+          <div *ngFor="let professor of arrayProfessors">
+            <div class="text-center card-box">
+              <div class="member-card">
+                <div class="thumb-lg member-thumb">
+                  <img [src]="professor.profile" alt="profile-image">
+                </div>
+                <div>
+                  <h6>{{professor.name}}</h6>
+                  <p>{{professor.position}}</p>
+                </div>
+                <ion-row class="ion-justify-content-center">
+                  <ion-col size="auto">
+                    <ion-button target="_blank" [href]="professor.mail" class="button" mode="ios" size="small"
+                      color="secondary">
+                      <ion-icon color="light" slot="icon-only" name="mail"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--Administración-->
+        <div class="row container-administration">
+          <label class="mt-3 mb-2"><b>En la administración de</b></label>
+          <br>
+          <ion-row>
+            <ion-col size="12">
+              Eduardo Díaz <br>
+              <small>(Rector)</small>
+            </ion-col>
+            <ion-col size="12">
+              Jenny Torres <br>
+              <small>(Vicerrectora Académica)</small>
+            </ion-col>
+            <ion-col size="12">
+              Roberto Pico <br>
+              <small>(Vicerrector Administrativo)</small>
+            </ion-col>
+            <ion-col size="12">
+              Leonardo Matute <br>
+              <small>(Director de Vinculación)</small>
+            </ion-col>
+            <ion-col size="12">
+              Patricio Alcócer <br>
+              <small>(Decano)</small>
+            </ion-col>
+            <ion-col size="12">
+              Stalin Carreño <br>
+              <small>(Unidad de TIC)</small>
+            </ion-col>
+          </ion-row>
+        </div>
+
+        <!--Colaboración de-->
+        <div class="row container-administration">
+          <label class="mb-2"><b>Con la colaboración de</b></label><br>
+          <ion-row>
+            <ion-col size="12">
+              Rosa Andrade y Sergio Yépez <br>
+              <small><i>Dirección de Gestión de Desarrollo Social del Gobierno Autónomo Descentralizado del cantón
+                  Quevedo</i></small>
+            </ion-col>
+          </ion-row>
+        </div>
+
+        <!--Más información-->
+        <div class="row container-more-information">
+          <label class="mb-2"><b>Para más información visite</b></label> <br>
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col size="12">
+                <a href="https://fyc.uteq.edu.ec/" target="_blank">https://fyc.uteq.edu.ec/</a>
+              </ion-col>
+              <ion-col size="12">
+                <a href="https://www.facebook.com/fycuteq" target="_blank">https://www.facebook.com/fycuteq</a>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+
+        <!--Footer-->
+        <div class="container-info-university">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12">
+                <small>
+                  © 2023 Universidad Técnica Estatal de Quevedo
+                </small>
+              </ion-col>
+              <ion-col size="12">
+                <small>
+                  Campus "Ingeniero Manuel Agustín Haz Álvarez"
+                </small>
+              </ion-col>
+              <ion-col size="12">
+                <small>
+                  Av. Quito km. 1 1/2 vía a Santo Domingo de los Tsáchilas
+                </small>
+              </ion-col>
+              <ion-col size="12">
+                <small>
+                  (+593) 5 3702-220 Ext. 8039
+                </small>
+              </ion-col>
+              <ion-col size="12">
+                <small>
+                  Email: info@uteq.edu.ec
+                </small>
+              </ion-col>
+              <ion-col size="12">
+                <small>
+                  Quevedo - Los Ríos - Ecuador
+                </small>
+              </ion-col>
+              <ion-col size="12">
+                <small>
+                  <a href="https://www.uteq.edu.ec" target="_blank">www.uteq.edu.ec</a>
+                </small>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </ion-grid>
+    </div>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,139 @@
+ion-header {
+    background-color: var(--background-color);
+}
+
+ion-content::part(background) {
+    --background-color: rgb(230, 229, 234);
+    background-color: var(--background-color);
+}
+
+.container {
+    background-color: white;
+    margin: 15px;
+    border-radius: 15px;
+}
+
+ion-col{
+    padding: 0px;
+    padding-top: 3px;
+}
+
+ion-button{
+    border-radius: 55px;
+}
+
+ion-title {
+    background-color: var(--background-ColorHeader);
+    color: white;
+}
+
+
+.img {
+    max-width: 20%;
+    justify-self: end;
+}
+
+.img-col {
+    justify-content: end;
+}
+
+ion-back-button {
+    background-color: var(--background-ColorHeader);
+}
+
+.toolbar-background {
+    background-color: var(--background-ColorHeader);
+}
+
+.container-info-credits{
+    text-align: center;
+}
+
+.container-developers {
+    text-align: center;
+}
+
+.container-professors {
+    text-align: center;
+    justify-content: center;
+}
+
+.container-administration {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.container-administration {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.container-more-information {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.container-more-information>a {
+    color: #00679e !important;
+}
+
+.container-info-university{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.container-info-university>a{
+    color: #00679e !important;
+}
+
+.social-links li a:hover {
+    color: #797979;
+    border: 1.5px solid #797979
+}
+
+.thumb-lg>img {
+    height: 88px;
+    width: 88px;
+    border-radius: 50%;
+}
+
+.img-thumbnail {
+    padding: .25rem;
+    background-color: #fff;
+    border-radius: .25rem;
+    max-width: 100%;
+    height: auto;
+}
+
+h6 {
+    font-weight: 700;
+}
+
+.card-box {
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+    background-color: #9CD3DD;
+}
+
+.social-links li a {
+    border-radius: 50%;
+    color: #00679e;
+    display: inline-block;
+    height: 30px;
+    line-height: 27px;
+    border: 1.5px solid #00679e;
+    text-align: center;
+    width: 30px
+}
+
+p{
+    margin: 5px;
+}
+
+h6{
+    margin: 5px;
+}

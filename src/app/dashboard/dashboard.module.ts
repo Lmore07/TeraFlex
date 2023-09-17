@@ -5,7 +5,6 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { DashboardPageRoutingModule } from './dashboard-routing.module';
-import { IonicSlides } from '@ionic/angular';
 import { DashboardPage } from './dashboard.page';
 import { TasksComponent } from './tasks/tasks.component';
 import { NotificacionesComponent } from './notificaciones/notificaciones.component';
@@ -14,6 +13,7 @@ import { AyudasComponent } from './ayudas/ayudas.component';
 import { InformacionComponent } from './informacion/informacion.component';
 import { RouterModule } from '@angular/router';
 import { DetailComponent } from './tasks/detail/detail.component';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 @NgModule({
   imports: [
@@ -23,6 +23,7 @@ import { DetailComponent } from './tasks/detail/detail.component';
     ReactiveFormsModule,
     DashboardPageRoutingModule,
     RouterModule,
+    YouTubePlayerModule
   ],
   declarations: [
     DashboardPage,

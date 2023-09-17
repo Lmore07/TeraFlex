@@ -1,15 +1,16 @@
 <ion-header mode="ios">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+      <ion-back-button text="Atrás" color="light" defaultHref="/dashboard/tasks"></ion-back-button>
     </ion-buttons>
+    <ion-title>TeraFlex</ion-title>
   </ion-toolbar>
-  <ion-toolbar>
+  <ion-toolbar class="borderRadius">
     <ion-title>Detalle de tarea</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content fullscreen="true" mode="ios">
-  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+  <ion-refresher mode="ios" slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-grid fixed>
@@ -44,26 +45,25 @@
         <ion-col size="12" *ngIf="file!=undefined">
           <ng-container *ngIf="file.type === 'online'; else offlineContent">
             <!-- Si es de tipo "online", muestra un iframe de YouTube -->
-            <iframe class="centered-video-youtube" [src]="showVideo(file.url)"
-              frameborder="0" #iframeElement
+            <iframe class="centered-video-youtube" [src]="showVideo(file.url)" frameborder="0" #iframeElement
               allowfullscreen></iframe>
+            <!-- <youtube-player (stateChange)="probando($event)" [width]="300" [height]="150" videoId="dQw4w9WgXcQ"></youtube-player> -->
           </ng-container>
           <ng-template #offlineContent>
             <!-- Si es de tipo "offline", muestra un video con la URL del blob -->
-            <video #video class="video" controls>
-              <source [src]="file.url" type="video/mp4">
+            <video #videoElement class="video" controls [src]="file.url">
             </video>
           </ng-template>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="6">
-          <ion-button *ngIf="index>0" (click)="anteriorVideo()" expand="block" fill="clear" shape="round">
+          <ion-button color="secondary" *ngIf="index>0" (click)="anteriorVideo()" expand="block" fill="outline" shape="round">
             Atras
           </ion-button>
         </ion-col>
         <ion-col size="6">
-          <ion-button *ngIf="index<videoData.length-1" (click)="siguienteVideo()" expand="block" fill="clear"
+          <ion-button color="secondary" *ngIf="index<videoData.length-1" (click)="siguienteVideo()" expand="block" fill="outline"
             shape="round">
             Siguiente
           </ion-button>

@@ -1,4 +1,4 @@
-<ion-content [fullscreen]="true" [scrollY]="false">
+<ion-content mode="ios" [fullscreen]="true" [scrollY]="false">
   <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
     <ion-grid>
       <ion-row class="ion-justify-content-center">
@@ -8,7 +8,7 @@
       </ion-row>
       <ion-row class="ion-justify-content-center">
         <ion-col size="auto">
-          <ion-label>
+          <ion-label mode="ios">
             <h1 class="title">Inicio de sesión</h1>
           </ion-label>
         </ion-col>
@@ -16,7 +16,7 @@
       <ion-row class="ion-justify-content-center campos">
         <ion-col size="12">
           <ion-item class="fields">
-            <ion-input type="number" formControlName="usuario" label="Usuario" labelPlacement="floating"
+            <ion-input mode="ios" type="number" formControlName="usuario" label="Usuario" labelPlacement="floating"
               placeholder="Ingrese su usuario"></ion-input>
           </ion-item>
           <ion-row class="ion-justify-content-start">
@@ -30,7 +30,7 @@
       <ion-row class="ion-justify-content-center campos">
         <ion-col size="12">
           <ion-item class="fields">
-            <ion-input type="password" formControlName="contraseña" label="Contraseña" labelPlacement="floating"
+            <ion-input mode="ios" type="password" formControlName="contraseña" label="Contraseña" labelPlacement="floating"
               placeholder="Ingrese su contraseña"></ion-input>
           </ion-item>
           <div class="error-message"
@@ -41,12 +41,12 @@
       </ion-row>
       <ion-row class="ion-justify-content-center">
         <ion-col size="12">
-          <ion-button type="submit" expand="block" class="buttonPrincipal">Ingresar</ion-button>
+          <ion-button mode="ios" type="submit" expand="block" class="buttonPrincipal">Ingresar</ion-button>
         </ion-col>
       </ion-row>
       <ion-row class="ion-justify-content-center">
         <ion-col size="auto">
-          <ion-label>
+          <ion-label mode="ios">
             <h1 class="txtOlvide">Olvide mi contraseña</h1>
           </ion-label>
         </ion-col>

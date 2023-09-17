@@ -1,0 +1,22 @@
+ion-header {
+    background-color: var(--background-color);
+}
+
+ion-content::part(background) {
+    --background-color: rgb(230, 229, 234);
+    background-color: var(--background-color);
+}
+
+ion-title {
+    background-color: var(--background-ColorHeader);
+    color: white;
+}
+
+
+.videos{
+    padding: 10px;
+}
+
+ion-label{
+    font-weight: 700;
+}
