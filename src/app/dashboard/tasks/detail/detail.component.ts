@@ -73,8 +73,8 @@ export class DetailComponent implements OnInit {
       orientation: 'portrait'
     });
     document.addEventListener('fullscreenchange', async () => {
-      console.log(this.videoelement)
-      if ((document.fullscreenElement === this.iframeElement?.nativeElement)) {
+      console.log(document.fullscreenElement)
+      if (document.fullscreenElement) {
         ScreenOrientation.lock({
           orientation: 'landscape'
         });
@@ -85,14 +85,12 @@ export class DetailComponent implements OnInit {
       }
     });
     document.addEventListener('webkitfullscreenchange', () => {
-      const video = this.videoelement.nativeElement;
-
-      if (document.fullscreenElement === video) {
+      console.log(document.fullscreenElement);
+      if (document.fullscreenElement) {
         ScreenOrientation.lock({
           orientation: 'landscape'
         });
       } else {
-        // El elemento de video ya no está en pantalla completa
         ScreenOrientation.lock({
           orientation: 'portrait'
         });
