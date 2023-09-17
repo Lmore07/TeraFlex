@@ -6,6 +6,7 @@ import { LoadingController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { PreferencesService } from './../preferences.service';
 import * as jose from 'jose'
+import { ScreenOrientation } from '@capacitor/screen-orientation';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +26,9 @@ export class HomePage implements OnInit, OnDestroy {
     public router: Router,
     private preferencesService: PreferencesService,
     public userService: UsuarioService) {
+    ScreenOrientation.lock({
+      orientation: 'portrait'
+    });
     this.formulario = this.formBuilder.group({
       usuario: ['', [Validators.required]],
       contraseña: ['', [Validators.required]],
@@ -52,16 +56,16 @@ export class HomePage implements OnInit, OnDestroy {
       console.log('Formulario válido:', this.formulario.value);
       this.userService.login(this.formulario.get("usuario")?.value, this.formulario.get("contraseña")?.value).subscribe(
         async (resp) => {
-          const tokenDecode:any = jose.decodeJwt(resp.data.token);
-          if (tokenDecode.role=='PATIENT') {
-            localStorage.setItem("token",resp.data.token);
-            localStorage.setItem("userId",tokenDecode.id);
+          const tokenDecode: any = jose.decodeJwt(resp.data.token);
+          if (tokenDecode.role == 'PATIENT') {
+            localStorage.setItem("token", resp.data.token);
+            localStorage.setItem("userId", tokenDecode.id);
             await this.preferencesService.setName('token', resp.data.token);
             await this.preferencesService.setName('userId', tokenDecode.id);
             this.esconderLoading();
             this.router.navigateByUrl("/dashboard");
-          }else{
-            this.presentAlert("No autorizado","La aplicación es unicamente para pacientes");
+          } else {
+            this.presentAlert("No autorizado", "La aplicación es unicamente para pacientes");
           }
         },
         (error) => {
@@ -78,7 +82,7 @@ export class HomePage implements OnInit, OnDestroy {
     this.loading = await this.loadingCtrl.create({
       message: 'Cargando',
       animated: true,
-      mode:'ios'
+      mode: 'ios'
     });
 
     this.loading.present();
@@ -93,7 +97,7 @@ export class HomePage implements OnInit, OnDestroy {
       header: title,
       message: message,
       buttons: ['OK'],
-      mode:'ios'
+      mode: 'ios'
     });
     await alert.present();
   }

@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, Platform } from '@ionic/angular';
 import { PreferencesService } from 'src/app/preferences.service';
 import { ApiNotificationService } from 'src/app/servicios/notificactions/api-notification.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { TextToSpeechService } from 'src/app/servicios/text-to-speech.service';
+import { ScreenOrientation } from '@capacitor/screen-orientation';
 
 @Component({
   selector: 'app-mi-perfil',
@@ -26,8 +27,15 @@ export class MiPerfilComponent implements OnInit, OnDestroy {
     private tts:TextToSpeechService,
     private notificationService: ApiNotificationService,
     private preferencesService: PreferencesService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private platform: Platform
   ) {
+    ScreenOrientation.lock({
+      orientation: 'portrait'
+    });
+    this.platform.backButton.subscribeWithPriority(10, async () => {
+      this.esconderLoading();
+    });
     this.form = this.formBuilder.group({
       nombres: [''],
       cedula: [''],

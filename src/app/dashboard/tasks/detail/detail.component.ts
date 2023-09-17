@@ -50,6 +50,7 @@ export class DetailComponent implements OnInit {
         console.log('Handler was called!');
         this.router.navigateByUrl("/dashboard/tasks", { skipLocationChange: true });
       }
+      this.esconderLoading();
     });
   }
 

@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TaskServiceService } from 'src/app/servicios/task-service.service';
 import { PreferencesService } from '../../preferences.service';
 import { ApiResponseListTasksAssignsToPatientI, TaskDetailAssignToPatientI } from 'src/app/interfaces/Task.interface';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, Platform } from '@ionic/angular';
+import { ScreenOrientation } from '@capacitor/screen-orientation';
 
 @Component({
   selector: 'app-tasks',
@@ -20,8 +21,16 @@ export class TasksComponent implements OnInit {
     public taskService: TaskServiceService,
     public preferencesService: PreferencesService,
     private alertController: AlertController,
-    private loadingCtrl: LoadingController
-  ) { }
+    private loadingCtrl: LoadingController,
+    private platform: Platform
+  ) { 
+    ScreenOrientation.lock({
+      orientation: 'portrait'
+    });
+    this.platform.backButton.subscribeWithPriority(10, async () => {
+      this.esconderLoading();
+    });
+  }
 
   async ngOnInit() {
     await this.loadTasks();

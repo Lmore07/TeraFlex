@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, Platform } from '@ionic/angular';
 import { NotificationI } from 'src/app/interfaces/Notification.interface';
 import { PreferencesService } from 'src/app/preferences.service';
 import { ApiNotificationService } from 'src/app/servicios/notificactions/api-notification.service';
+import { ScreenOrientation } from '@capacitor/screen-orientation';
+
 
 @Component({
   selector: 'app-notificaciones',
@@ -18,8 +20,16 @@ export class NotificacionesComponent implements OnInit {
     private notificationService: ApiNotificationService,
     public preferencesService: PreferencesService,
     private alertController: AlertController,
-    private loadingCtrl: LoadingController
-  ) { }
+    private loadingCtrl: LoadingController,
+    private platform: Platform
+  ) { 
+    ScreenOrientation.lock({
+      orientation: 'portrait'
+    });
+    this.platform.backButton.subscribeWithPriority(10, async () => {
+      this.esconderLoading();
+    });
+  }
 
   async ngOnInit() {
     await this.loadNotifications();
