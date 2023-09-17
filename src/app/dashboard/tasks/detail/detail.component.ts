@@ -128,7 +128,7 @@ export class DetailComponent implements OnInit {
               console.log(download)
               this.videoData.push(download);
             } else {
-              //await this.downloadFiles(element.id, element.type);
+              await this.downloadFiles(element.id, element.type);
             }
             this.file = this.videoData[0];
           });
