@@ -10,7 +10,7 @@ import { PreferencesService } from './../preferences.service';
 })
 export class TaskServiceService {
 
-  urlApi = "https://lzb07nfq-3000.use2.devtunnels.ms";
+  urlApi = "https://fyc.uteq.edu.ec:4001";
   headers: any;
 
   constructor(private clientHttp: HttpClient, private preferences: PreferencesService) {

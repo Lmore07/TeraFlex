@@ -10,13 +10,13 @@ import { ApiResponseGetMiPerfil } from '../interfaces/Usuario.interface';
 })
 export class UsuarioService {
 
-  urlApi = "https://lzb07nfq-3000.use2.devtunnels.ms";
+  urlApi = "https://fyc.uteq.edu.ec:4001";
   headers: any;
 
   constructor(
     private clientHttp: HttpClient,
     private preferences: PreferencesService) {
-    
+
   }
 
   async getHeaders() {
@@ -25,7 +25,7 @@ export class UsuarioService {
     });
   }
 
-  login(identification:number,password:string): Observable<any> {
+  login(identification: number, password: string): Observable<any> {
     this.headers = new HttpHeaders({
       'password': `${password}`,
       'identification': `${identification}`
@@ -34,7 +34,7 @@ export class UsuarioService {
     return this.clientHttp.post<any>(this.urlApi + "/auth/login", null, options);
   }
 
-  async getDataUser(): Promise<Observable<ApiResponseGetMiPerfil>>{
+  async getDataUser(): Promise<Observable<ApiResponseGetMiPerfil>> {
     await this.getHeaders();
     var options = { headers: this.headers }
     return this.clientHttp.get<ApiResponseGetMiPerfil>(this.urlApi + "/user/my-profile", options);

@@ -73,11 +73,12 @@ export class DetailComponent implements OnInit {
       orientation: 'portrait'
     });
     document.addEventListener('fullscreenchange', async () => {
-      console.log(document.fullscreenElement)
+      ScreenOrientation.unlock();
       if (document.fullscreenElement) {
         ScreenOrientation.lock({
           orientation: 'landscape'
         });
+        ScreenOrientation.unlock();
       } else {
         ScreenOrientation.lock({
           orientation: 'portrait'
@@ -85,11 +86,12 @@ export class DetailComponent implements OnInit {
       }
     });
     document.addEventListener('webkitfullscreenchange', () => {
-      console.log(document.fullscreenElement);
+      ScreenOrientation.unlock();
       if (document.fullscreenElement) {
         ScreenOrientation.lock({
           orientation: 'landscape'
         });
+        ScreenOrientation.unlock();
       } else {
         ScreenOrientation.lock({
           orientation: 'portrait'
