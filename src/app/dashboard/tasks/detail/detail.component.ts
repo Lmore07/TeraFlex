@@ -73,12 +73,10 @@ export class DetailComponent implements OnInit {
       orientation: 'portrait'
     });
     document.addEventListener('fullscreenchange', async () => {
-      ScreenOrientation.unlock();
       if (document.fullscreenElement) {
         ScreenOrientation.lock({
           orientation: 'landscape'
         });
-        ScreenOrientation.unlock();
       } else {
         ScreenOrientation.lock({
           orientation: 'portrait'
@@ -91,7 +89,6 @@ export class DetailComponent implements OnInit {
         ScreenOrientation.lock({
           orientation: 'landscape'
         });
-        ScreenOrientation.unlock();
       } else {
         ScreenOrientation.lock({
           orientation: 'portrait'
@@ -128,10 +125,10 @@ export class DetailComponent implements OnInit {
               let download: FilesToView = { type: "online", url: "https://www.youtube.com/embed/" + this.getVideoIdFromUrl(element.url) };
               console.log(download)
               this.videoData.push(download);
+              this.file = this.videoData[0];
             } else {
               await this.downloadFiles(element.id, element.type);
             }
-            this.file = this.videoData[0];
           });
         }
         this.esconderLoading();
@@ -180,6 +177,7 @@ export class DetailComponent implements OnInit {
         console.log("Video descargado: " + blobUrl)
         let download: FilesToView = { type: type, url: blobUrl };
         this.videoData.push(download);
+        this.file = this.videoData[0];
         this.esconderLoading();
       },
       (err) => {
