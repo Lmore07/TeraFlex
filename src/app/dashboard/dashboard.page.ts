@@ -36,7 +36,7 @@ export class DashboardPage {
       }
     });
     platform.ready().then(() => {
-      fcm.initPush();
+      this.fcm.initPush();
     }).catch( e => {
       console.log(e);
     });

@@ -4,6 +4,7 @@ import { NotificationI } from 'src/app/interfaces/Notification.interface';
 import { PreferencesService } from 'src/app/preferences.service';
 import { ApiNotificationService } from 'src/app/servicios/notificactions/api-notification.service';
 import { ScreenOrientation } from '@capacitor/screen-orientation';
+import { NotificationService } from 'src/app/servicios/notificactions/notification.service';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class NotificacionesComponent implements OnInit, OnDestroy {
   constructor(
     private notificationService: ApiNotificationService,
     public preferencesService: PreferencesService,
+    private fcm:NotificationService,
     private alertController: AlertController,
     private loadingCtrl: LoadingController,
     private platform: Platform
@@ -38,6 +40,13 @@ export class NotificacionesComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+    (await this.notificationService.verificaDeice()).subscribe(
+      (resp)=>{
+        console.log(resp);
+      },(error)=>{
+        this.fcm.initPush();
+      }
+    );
     await this.loadNotifications();
   }
 
@@ -48,15 +57,15 @@ export class NotificacionesComponent implements OnInit, OnDestroy {
   }
 
   async loadNotifications() {
-    this.showLoading();
+    await this.showLoading();
     (await this.notificationService.getNotificationAll()).subscribe(
       (resp) => {
         if (resp.data.length == 0) {
           this.alertSinActions("Lo sentimos", "No tiene notificaciones por ahora.");
         } else {
-          console.log(resp);
           this.notificationList = resp.data;
         }
+        console.log(this.loading)
         this.esconderLoading();
       },
       (err) => {
@@ -75,8 +84,10 @@ export class NotificacionesComponent implements OnInit, OnDestroy {
     this.loading.present();
   }
 
-  esconderLoading() {
-    this.loading.dismiss();
+  async esconderLoading() {
+    if(this.loading){
+      await this.loading.dismiss();
+    }
   }
 
   async checkNotification(idNotification: number) {

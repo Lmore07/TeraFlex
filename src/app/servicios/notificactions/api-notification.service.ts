@@ -10,7 +10,7 @@ import { ApiResponseListNotificationsI } from 'src/app/interfaces/Notification.i
 })
 export class ApiNotificationService {
 
-  urlApi = "https://lzb07nfq-3000.use2.devtunnels.ms";
+  urlApi = "https://fyc.uteq.edu.ec:4001";
   headers: any;
   idInfo: any;
 
@@ -56,5 +56,11 @@ export class ApiNotificationService {
     await this.getHeaders();
     var options = { headers: this.headers };
     return this.clientHttp.delete<any>(this.urlApi + "/notification/delete/"+idNotification, options);
+  }
+
+  async verificaDeice():Promise<Observable<any>>{
+    await this.getHeaders();
+    var options = { headers: this.headers };
+    return this.clientHttp.get<any>(this.urlApi + "/notification-token/verify-device/"+(await this.preferences.getName('device')).value, options);
   }
 }
