@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AlertController, LoadingController, Platform } from '@ionic/angular';
 import { TaskServiceService } from 'src/app/servicios/task-service.service';
 import { FilesToView, TaskDetail } from 'src/app/interfaces/Task.interface';
@@ -14,7 +14,7 @@ register();
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
 })
-export class DetailComponent implements OnInit {
+export class DetailComponent implements OnInit, OnDestroy {
 
   @ViewChild('iframeElement') iframeElement!: ElementRef;
   @ViewChild('videoElement') videoelement!: ElementRef;
@@ -50,15 +50,31 @@ export class DetailComponent implements OnInit {
         console.log('Handler was called!');
         this.router.navigateByUrl("/dashboard/tasks", { skipLocationChange: true });
       }
-      this.esconderLoading();
+      if (this.loading) {
+        this.esconderLoading();
+      }
     });
   }
 
+  ngOnDestroy(): void {
+    this.tts.stop();
+    if (this.loading) {
+      this.esconderLoading();
+    }
+  }
 
   async playSound(event: any) {
-    const messageVoice = this.getMessageVoice(this.detailTask?.title!, this.detailTask?.description!, this.detailTask?.estimatedTime!);
-    console.log(messageVoice);
-    await this.tts.speak(messageVoice);
+    if (!this.repoduciendoSonido) {
+      this.repoduciendoSonido = true;
+      const messageVoice = this.getMessageVoice(this.detailTask?.title!, this.detailTask?.description!, this.detailTask?.estimatedTime!);
+      console.log(messageVoice);
+      await this.tts.speak(messageVoice);
+      this.repoduciendoSonido = false;
+    } else {
+      this.repoduciendoSonido = false;
+      await this.tts.stop();
+    }
+
   }
 
   ngOnInit() {

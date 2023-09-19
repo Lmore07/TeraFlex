@@ -1,9 +1,9 @@
 <ion-header mode="ios">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button color="light" [defaultHref]="dashboard"></ion-back-button>
+      <ion-back-button text="Atrás" color="light" [defaultHref]="dashboard"></ion-back-button>
     </ion-buttons>
-    <ion-title>TeraFlex</ion-title>
+      <ion-title class="titleMax">TeraFlex</ion-title>
   </ion-toolbar>
   <ion-toolbar class="borderRadius">
     <ion-title>Mi Perfil</ion-title>
@@ -14,10 +14,11 @@
     <ion-grid>
       <div class="container">
 
-        <ion-row class="ion-justify-content-center">
-          <ion-col size="1">
-            <ion-icon name="person" color="primary" size="large"></ion-icon>
-          </ion-col>
+        <ion-row class="ion-justify-content-center img-container">
+          <ion-thumbnail>
+            <img alt="Silhouette of mountains"
+              src="https://res.cloudinary.com/dfzyxagbc/image/upload/v1691905728/TeraFlex%20-%20Vinculaci%C3%B3n/user-profile_fbdmtf.png" />
+          </ion-thumbnail>
         </ion-row>
         <ion-row>
           <ion-col size="12">

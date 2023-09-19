@@ -47,6 +47,9 @@ export class MiPerfilComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     console.log('ngOnDestroy')
     this.tts.stop()
+    if(this.loading){
+      this.esconderLoading();
+    }
   }
 
   async ngOnInit() {

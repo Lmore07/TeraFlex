@@ -10,12 +10,12 @@ import { ScreenOrientation } from '@capacitor/screen-orientation';
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss'],
 })
-export class TasksComponent implements OnInit {
+export class TasksComponent implements OnInit, OnDestroy {
 
 
   tasksData!: TaskDetailAssignToPatientI[];
   loading!: any;
-  estadoActivity:boolean=false;
+  estadoActivity: boolean = false;
 
   constructor(
     public taskService: TaskServiceService,
@@ -23,13 +23,21 @@ export class TasksComponent implements OnInit {
     private alertController: AlertController,
     private loadingCtrl: LoadingController,
     private platform: Platform
-  ) { 
+  ) {
     ScreenOrientation.lock({
       orientation: 'portrait'
     });
     this.platform.backButton.subscribeWithPriority(10, async () => {
-      this.esconderLoading();
+      if (this.loading) {
+        this.esconderLoading();
+      }
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.loading) {
+      this.esconderLoading();
+    }
   }
 
   async ngOnInit() {
@@ -63,9 +71,9 @@ export class TasksComponent implements OnInit {
     event.target.complete();
   }
 
-  async handleChange(e:any) {
-    this.estadoActivity=e.detail.value;
-    this.tasksData=[];
+  async handleChange(e: any) {
+    this.estadoActivity = e.detail.value;
+    this.tasksData = [];
     await this.loadTasks();
   }
 
@@ -73,13 +81,13 @@ export class TasksComponent implements OnInit {
     this.loading = await this.loadingCtrl.create({
       message: 'Cargando',
       animated: true,
-      mode:'ios'
+      mode: 'ios'
     });
     this.loading.present();
   }
 
-  esconderLoading() {
-    this.loading.dismiss();
+  async esconderLoading() {
+    await this.loading.dismiss();
   }
 
   async presentAlert(title: string, message: string) {
@@ -87,7 +95,7 @@ export class TasksComponent implements OnInit {
       header: title,
       message: message,
       buttons: ['OK'],
-      mode:'ios'
+      mode: 'ios'
     });
     await alert.present();
   }

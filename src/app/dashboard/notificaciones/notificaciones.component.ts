@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertController, LoadingController, Platform } from '@ionic/angular';
 import { NotificationI } from 'src/app/interfaces/Notification.interface';
 import { PreferencesService } from 'src/app/preferences.service';
@@ -11,7 +11,7 @@ import { ScreenOrientation } from '@capacitor/screen-orientation';
   templateUrl: './notificaciones.component.html',
   styleUrls: ['./notificaciones.component.scss'],
 })
-export class NotificacionesComponent implements OnInit {
+export class NotificacionesComponent implements OnInit, OnDestroy {
 
   notificationList!: NotificationI[];
   loading!: any;
@@ -29,6 +29,12 @@ export class NotificacionesComponent implements OnInit {
     this.platform.backButton.subscribeWithPriority(10, async () => {
       this.esconderLoading();
     });
+  }
+
+  ngOnDestroy(): void {
+    if(this.loading){
+      this.esconderLoading();
+    }
   }
 
   async ngOnInit() {

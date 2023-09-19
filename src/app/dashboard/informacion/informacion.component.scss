@@ -22,11 +22,20 @@ ion-button{
     border-radius: 55px;
 }
 
+ion-label{
+    font-size: 24px;
+    font-weight: 700;
+}
+
 ion-title {
     background-color: var(--background-ColorHeader);
     color: white;
 }
 
+.labelTitle{
+    text-align: justify;
+    text-justify: distribute-all-lines;
+}
 
 .img {
     max-width: 20%;
@@ -46,7 +55,10 @@ ion-back-button {
 }
 
 .container-info-credits{
-    text-align: center;
+    padding: 15px;
+    text-align-last: left;
+    text-justify: inter-ideograph;
+    text-align: justify;
 }
 
 .container-developers {
