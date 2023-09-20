@@ -16,11 +16,8 @@ register();
 })
 export class DetailComponent implements OnInit, OnDestroy {
 
-  @ViewChild('iframeElement') iframeElement!: ElementRef;
-  @ViewChild('videoElement') videoelement!: ElementRef;
-
   detailTask: TaskDetail | undefined;
-  loading!: any;
+  loading!: HTMLIonLoadingElement;
 
   videoData: FilesToView[] = [];
   file!: FilesToView;
@@ -47,7 +44,6 @@ export class DetailComponent implements OnInit, OnDestroy {
         });
         document.exitFullscreen();
       } else {
-        console.log('Handler was called!');
         this.router.navigateByUrl("/dashboard/tasks", { skipLocationChange: true });
       }
       if (this.loading) {
@@ -67,7 +63,6 @@ export class DetailComponent implements OnInit, OnDestroy {
     if (!this.repoduciendoSonido) {
       this.repoduciendoSonido = true;
       const messageVoice = this.getMessageVoice(this.detailTask?.title!, this.detailTask?.description!, this.detailTask?.estimatedTime!);
-      console.log(messageVoice);
       await this.tts.speak(messageVoice);
       this.repoduciendoSonido = false;
     } else {
@@ -78,9 +73,6 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    document.addEventListener('volumechange', async () => {
-      console.log("probando")
-    });
     this.activatedRoute.params.subscribe(async (params) => {
       this.idTask = params['id'];
       this.loadDetailTask();
@@ -114,7 +106,6 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   }
 
-
   siguienteVideo() {
     this.index += 1;
     this.file = this.videoData[this.index];
@@ -126,7 +117,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   async loadDetailTask() {
-    this.showLoading();
+    await this.showLoading();
     (await this.taskService.getDetailTask(
       this.idTask
     )).subscribe(
@@ -138,8 +129,7 @@ export class DetailComponent implements OnInit, OnDestroy {
           this.detailTask = resp.data;
           this.detailTask.files.forEach(async element => {
             if (element.type == "online") {
-              let download: FilesToView = { type: "online", url: "https://www.youtube.com/embed/" + this.getVideoIdFromUrl(element.url) };
-              console.log(download)
+              let download: FilesToView = { type: "online", url: this.showVideo("https://www.youtube.com/embed/" + this.getVideoIdFromUrl(element.url)) };
               this.videoData.push(download);
               this.file = this.videoData[0];
             } else {
@@ -184,13 +174,12 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   async downloadFiles(id: number, type: string) {
-    this.showLoading();
+    await this.showLoading();
     (await this.taskService.downloadFile(
       id
     )).subscribe(
       (resp: Blob) => {
         const blobUrl = URL.createObjectURL(resp);
-        console.log("Video descargado: " + blobUrl)
         let download: FilesToView = { type: type, url: blobUrl };
         this.videoData.push(download);
         this.file = this.videoData[0];
@@ -221,7 +210,10 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   esconderLoading() {
-    this.loading.dismiss();
+    console.log(this.loading)
+    if(this.loading){
+      this.loading.dismiss();
+    }
   }
 
   async presentAlert(title: string, message: string) {

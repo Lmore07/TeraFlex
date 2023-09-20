@@ -17,14 +17,14 @@ export class MiPerfilComponent implements OnInit, OnDestroy {
 
   form!: FormGroup;
   loading!: any;
-  dashboard="/dashboard";
+  dashboard = "/dashboard";
 
   constructor(
     private formBuilder: FormBuilder,
     private alertController: AlertController,
     private userService: UsuarioService,
-    private router:Router,
-    private tts:TextToSpeechService,
+    private router: Router,
+    private tts: TextToSpeechService,
     private notificationService: ApiNotificationService,
     private preferencesService: PreferencesService,
     private loadingCtrl: LoadingController,
@@ -34,7 +34,9 @@ export class MiPerfilComponent implements OnInit, OnDestroy {
       orientation: 'portrait'
     });
     this.platform.backButton.subscribeWithPriority(10, async () => {
-      this.esconderLoading();
+      if (this.loading) {
+        this.esconderLoading();
+      }
     });
     this.form = this.formBuilder.group({
       nombres: [''],
@@ -47,23 +49,23 @@ export class MiPerfilComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     console.log('ngOnDestroy')
     this.tts.stop()
-    if(this.loading){
+    if (this.loading) {
       this.esconderLoading();
     }
   }
 
   async ngOnInit() {
-    this.showLoading();
+    await this.showLoading();
     (await this.userService.getDataUser()).subscribe(
       async (resp) => {
         if (resp.data.id == undefined) {
           this.presentAlert("Lo sentimos", "Ha ocurrido un error");
         } else {
           console.log(resp)
-          this.form.controls['nombres'].setValue(resp.data.firstName+" "+resp.data.lastName);
+          this.form.controls['nombres'].setValue(resp.data.firstName + " " + resp.data.lastName);
           this.form.controls['cedula'].setValue(resp.data.docNumber);
           this.form.controls['telefono'].setValue(resp.data.phone);
-          this.form.controls['descripcion'].setValue(resp.data.description);  
+          this.form.controls['descripcion'].setValue(resp.data.description);
         }
         this.esconderLoading();
       },
@@ -79,16 +81,10 @@ export class MiPerfilComponent implements OnInit, OnDestroy {
       header: title,
       message: message,
       buttons: ['OK'],
-      mode:'ios'
+      mode: 'ios'
     });
     await alert.present();
   }
-
-  returnToDashboard():string{
-    this.tts.stop();
-    return '/dashboard';
-  }
-
 
   async showLoading() {
     this.loading = await this.loadingCtrl.create({
@@ -100,17 +96,17 @@ export class MiPerfilComponent implements OnInit, OnDestroy {
     this.loading.present();
   }
 
-  async logOut(){
+  async logOut() {
     this.showLoading();
     (await this.notificationService.updateDevice()).subscribe(
       (resp) => {
         this.esconderLoading();
-        this.alertWithActions("Cierre exitoso","Se ha cerrado la sesión con éxito");
+        this.alertWithActions("Cierre exitoso", "Se ha cerrado la sesión con éxito");
       },
       (err) => {
         console.log(err)
         this.esconderLoading();
-        this.presentAlert("Lo sentimos","Ocurrió un error al cerrar la sesión");
+        this.presentAlert("Lo sentimos", "Ocurrió un error al cerrar la sesión");
       }
     );
   }
@@ -127,7 +123,7 @@ export class MiPerfilComponent implements OnInit, OnDestroy {
           this.router.navigateByUrl("/login");
         }
       }],
-      mode:'ios'
+      mode: 'ios'
     });
     await alert.present();
   }
@@ -141,9 +137,9 @@ export class MiPerfilComponent implements OnInit, OnDestroy {
   }
 
 
-  retornaTextToSpeech():string {
+  retornaTextToSpeech(): string {
     const mensaje =
-      'Hola, tu nombre es '+
+      'Hola, tu nombre es ' +
       this.form.controls['nombres'].value +
       ' , tu número de cédula es ' +
       this.form.controls['cedula'].value +
@@ -151,6 +147,6 @@ export class MiPerfilComponent implements OnInit, OnDestroy {
       this.form.controls['telefono'].value +
       'y la descripción dada por tu terapeuta es ' +
       this.form.controls['descripcion'].value;
-      return mensaje;
+    return mensaje;
   }
 }

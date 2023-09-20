@@ -45,5 +45,5 @@ export interface Files{
 
 export interface FilesToView{
     type:string;
-    url:string;
+    url:any;
 }
