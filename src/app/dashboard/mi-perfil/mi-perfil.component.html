@@ -23,7 +23,7 @@
         <ion-row>
           <ion-col size="12">
             <ion-item>
-              <ion-input readonly="true" formControlName="nombres" label="Nombres" labelPlacement="stacked"></ion-input>
+              <ion-input [readonly]="true" formControlName="nombres" label="Nombres" labelPlacement="stacked"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -45,7 +45,7 @@
         <ion-row>
           <ion-col size="12">
             <ion-item>
-              <ion-textarea formControlName="descripcion" label="Descripción" labelPlacement="stacked"></ion-textarea>
+              <ion-textarea readonly="true" formControlName="descripcion" label="Descripción" labelPlacement="stacked"></ion-textarea>
             </ion-item>
           </ion-col>
         </ion-row>

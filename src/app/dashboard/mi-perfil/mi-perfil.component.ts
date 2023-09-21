@@ -106,7 +106,7 @@ export class MiPerfilComponent implements OnInit, OnDestroy {
       (err) => {
         console.log(err)
         this.esconderLoading();
-        this.presentAlert("Lo sentimos", "Ocurrió un error al cerrar la sesión");
+        this.alertWithActions("Cierre exitoso", "Se ha cerrado la sesión con éxito");
       }
     );
   }
