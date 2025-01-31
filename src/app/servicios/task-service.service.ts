@@ -10,7 +10,7 @@ import { PreferencesService } from './../preferences.service';
 })
 export class TaskServiceService {
 
-  urlApi = "https://fyc.uteq.edu.ec:4001";
+  urlApi = "https://fyc.uteq.edu.ec/teraflex_api";
   headers: any;
 
   constructor(private clientHttp: HttpClient, private preferences: PreferencesService) {

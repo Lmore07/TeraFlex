@@ -10,7 +10,7 @@ import { ApiResponseGetMiPerfil } from '../interfaces/Usuario.interface';
 })
 export class UsuarioService {
 
-  urlApi = "https://fyc.uteq.edu.ec:4001";
+  urlApi = "https://fyc.uteq.edu.ec/teraflex_api";
   headers: any;
 
   constructor(

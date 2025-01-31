@@ -10,7 +10,7 @@ import { ApiResponseListNotificationsI } from 'src/app/interfaces/Notification.i
 })
 export class ApiNotificationService {
 
-  urlApi = "https://fyc.uteq.edu.ec:4001";
+  urlApi = "https://fyc.uteq.edu.ec/teraflex_api";
   headers: any;
   idInfo: any;
 
